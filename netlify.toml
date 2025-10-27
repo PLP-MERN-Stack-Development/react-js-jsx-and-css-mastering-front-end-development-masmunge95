@@ -1,0 +1,14 @@
+# Netlify build configuration
+
+[build]
+  # This is the command to build your Vite site
+  command = "npm run build"
+
+  # This is the directory that contains the built site
+  publish = "dist"
+
+# Redirect all traffic to index.html for client-side routing to work
+[redirects]
+  from = "/*"
+  to = "/index.html"
+  status = 200
