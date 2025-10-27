@@ -19,7 +19,6 @@ router.post('/', async (req, res) => {
     try {
         const task = new Task({ title, description });
         const saved =  await task.save();
-        console.log('Backend: Task saved and sent:', saved); // <-- ADD THIS LINE
         res.status(201).json(saved);
     } catch (error) {
         res.status(400).json({ message: error.message });

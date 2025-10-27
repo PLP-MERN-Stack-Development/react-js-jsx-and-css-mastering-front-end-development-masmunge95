@@ -2,7 +2,6 @@ import { useState } from 'react';
 import Button from '@/components/Button';
 
 export default function TaskCard({ task, onUpdate, onDelete }) {
-    console.log('TaskCard: Rendering task:', task); // <-- ADD THIS LINE
     const [isEditing, setIsEditing] = useState(false);
     const [draft, setDraft] = useState({ title: task.title, description: task.description });
 

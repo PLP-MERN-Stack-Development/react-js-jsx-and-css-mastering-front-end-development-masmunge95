@@ -54,7 +54,6 @@ const TaskManager = () => {
       setIsAddingTask(true);
       setError(null); // Clear previous errors
       const newTask = await createTask(taskData);
-      console.log('TaskManager: Adding task to state:', newTask); // <-- DEBUG LINE 
       // Only update state with the final task object from the API
       // which includes the default 'active' status from the server.
       setTasks((prevTasks) => [newTask, ...prevTasks]);
