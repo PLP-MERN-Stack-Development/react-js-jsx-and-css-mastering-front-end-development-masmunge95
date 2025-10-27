@@ -10,6 +10,7 @@ This is a full-stack task management application built with the MERN (MongoDB, E
 - **API Integration**: Fetches and displays blog posts from the public [JSONPlaceholder](https://jsonplaceholder.typicode.com/) API.
 - **Search & Pagination**: Search through fetched posts and navigate through pages.
 - **Responsive Design**: A clean and responsive UI built with React and Tailwind CSS.
+- **Smooth Scrolling**: Custom smooth scroll animations for a polished user experience during on-page navigation and pagination.
 
 ## Screenshots
 
@@ -31,6 +32,41 @@ The application uses a single Mongoose model for tasks.
 | `status`      | String  | Yes      | `active` | The current status of the task. (Enum: `active`, `completed`, `abandoned`) |
 | `createdAt`   | Date    | Yes      | `Date.now` | Timestamp for when the task was created.     |
 | `updatedAt`   | Date    | Yes      | `Date.now` | Timestamp for when the task was last updated.|
+
+## Folder Structure
+
+The project is organized into a clean and scalable structure, separating frontend and backend concerns.
+
+```
+Project-folder/
+├── config/                 # Database configuration
+│   └── db.js               # MongoDB connection setup
+├── models/                 # Mongoose schemas and models
+│   └── Task.js             # Task schema definition
+├── public/                 # Static assets
+├── routes/                 # Backend Express routes
+│   └── TaskRoutes.js       # Task-related CRUD, filtering, pagination, stats
+├── src/                    # Frontend source code (React)
+│   ├── api/                # API integration functions
+│   ├── components/         # Reusable UI components
+│   ├── context/            # React context providers
+│   ├── hooks/              # Custom React hooks
+│   ├── pages/              # Page components
+│   └── utils/              # Utility functions
+│   ├── App.jsx             # Main application component
+│   ├── index.css           # Global styles and Tailwind directives
+│   └── main.jsx            # Application entry point 
+├── .env.example            # Example environment variables
+├── .gitignore              # Git ignore file
+├── eslint.config.js        # ESLint configuration
+├── index.html              # Main HTML file for Vite
+├── jsconfig.json           # JS path alias configuration
+├── package.json            # Project dependencies and scripts
+├── README.md               # Project documentation
+├── server.js               # Backend server entry point
+├── tailwind.config.js      # Tailwind CSS configuration
+└── vite.config.js          # Vite configuration
+```
 
 ---
 
@@ -71,8 +107,8 @@ This guide assumes you are cloning the existing repository. If you were starting
 First, clone the project repository to your local machine.
 
 ```bash
-git clone <your-repository-url>
-cd week-3-project
+git clone <repository-url>
+cd <project-folder>
 ```
 
 ### 2. Install Dependencies
@@ -125,7 +161,7 @@ You will need to run two separate processes in two different terminals: one for 
 
 ### 1. Start the Backend Server
 
-In your terminal, run the following command to start the Node.js/Express server. It will connect to your MongoDB database and listen for API requests.
+Open a new terminal in your project folder and run the following command to start the Node.js/Express server. It will connect to your MongoDB database and listen for API requests.
 
 ```bash
 node server.js
@@ -135,13 +171,14 @@ You should see `Server is running on port 3000` and `Successfully connected to M
 
 ### 2. Start the Frontend Server
 
-In a **new terminal window**, run the following command to start the Vite development server.
+In a **new terminal window** inside your project folder, run the following command to start the Vite development server.
 
 ```bash
 npm run dev
 ```
 
-Your application should now be running and accessible at **http://localhost:5173**.
+The development server will start on http://localhost:\
+<port>, where <port> is typically 5173 unless otherwise configured in your Vite settings.
 
 ## Troubleshooting
 
