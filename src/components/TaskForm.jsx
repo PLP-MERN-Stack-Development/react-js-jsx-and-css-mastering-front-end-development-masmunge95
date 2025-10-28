@@ -29,7 +29,7 @@ export default function TaskForm({ onSubmit, isSubmitting = false }) {
                 value={form.title}
                 onChange={handleChange}
                 placeholder="Enter task title"
-                className="border rounded-lg p-3 flex-1 bg-gray-50 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                className="border rounded-lg p-3 flex-1 bg-gray-50 text-black placeholder-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:placeholder-gray-400"
                 required
             />
             <textarea
@@ -37,7 +37,7 @@ export default function TaskForm({ onSubmit, isSubmitting = false }) {
                 value={form.description}
                 onChange={handleChange}
                 placeholder="Enter task description"
-                className="border rounded-lg p-3 flex-1 h-24 bg-gray-50 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                className="border rounded-lg p-3 flex-1 h-24 bg-gray-50 text-black placeholder-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:placeholder-gray-400"
             />
             <Button 
                 type="submit" 

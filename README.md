@@ -45,7 +45,7 @@ Project-folder/
 │   └── Task.js             # Task schema definition
 ├── public/                 # Static assets
 ├── routes/                 # Backend Express routes
-│   └── TaskRoutes.js       # Task-related CRUD, filtering, pagination, stats
+│   └── TaskRoutes.js       # Task-related CRUD operations
 ├── src/                    # Frontend source code (React)
 │   ├── api/                # API integration functions
 │   ├── components/         # Reusable UI components
@@ -126,7 +126,6 @@ Below is a breakdown of the key dependencies and their roles in the project:
 - **Mongoose (mongoose)**: An Object Data Modeling (ODM) library for MongoDB and Node.js. It helps us define a schema for our data and easily interact with the MongoDB database.
 - **Dotenv (dotenv)**: A zero-dependency module that loads environment variables from a .env file into process.env. This is how we securely manage our MONGO_URI without hardcoding it.
 - **CORS (cors)**: A Node.js package for providing an Express middleware that enables Cross-Origin Resource Sharing. It's essential for allowing our frontend (on localhost:5173) to make API requests to our backend (on localhost:3000).
--   **Node Type Definitions** (`@types/node`): A development dependency that provides type definitions for Node.js, improving editor autocompletion in files like `vite.config.js`.
 
 #### Frontend & Styling Dependencies
 
@@ -136,6 +135,7 @@ Below is a breakdown of the key dependencies and their roles in the project:
 -   **Tailwind CSS** (`tailwindcss`): A utility-first CSS framework for rapidly building custom user interfaces.
 -   **Tailwind CSS Vite Plugin** (`@tailwindcss/vite`): A Vite plugin that seamlessly integrates Tailwind CSS into the Vite build process.
 -   **Prop-Types** (`prop-types`): Provides runtime type checking for React props, which helps catch bugs.
+-   **Node Type Definitions** (`@types/node`): A development dependency that provides type definitions for Node.js, improving editor autocompletion in files like `vite.config.js`.
 
 ### 3. Set Up Environment Variables
 
@@ -179,6 +179,35 @@ npm run dev
 
 The development server will start on http://localhost:\
 <port>, where <port> is typically 5173 unless otherwise configured in your Vite settings.
+
+---
+
+## Deployment
+
+This MERN stack application is deployed using a split-service strategy: the frontend is hosted on Netlify, and the backend API is hosted on Render.
+
+-   **Live Frontend (Netlify):** [https://task-manager-week-3.netlify.app/](https://task-manager-week-3.netlify.app/)
+-   **Live Backend (Render):** [https://task-manager-api-lbc6.onrender.com/api](https://task-manager-api-lbc6.onrender.com/api)
+
+### Deploying the Backend to Render
+
+1.  Create a new **"Web Service"** on Render, choose your preferred instance type, and connect your Git repository.
+2.  Use the following settings:
+    -   **Environment:** `Node`
+    -   **Build Command:** `npm install`
+    -   **Start Command:** `node server.js`
+3.  In the "Environment" tab, add your `MONGO_URI` as an environment variable.
+4.  Deploy the service and copy the provided `.onrender.com` URL.
+
+### Deploying the Frontend to Netlify
+
+1.  Add a new project on Netlify, select import an existing project, and connect your Git repository.
+2.  Configure the build settings:
+    -   The `netlify.toml` file in the project will automatically set the build command and publish directory.
+3.  Add the following environment variables in **Site configuration > Build & deploy > Environment**:
+    -   `VITE_API_URL`: Set this to your live Render backend URL (e.g., `https://task-manager-api-lbc6.onrender.com/api`).
+    -   `SECRETS_SCAN_OMIT_KEYS`: Set this to `VITE_API_URL`. This is a crucial step to prevent Netlify's build from failing due to its secret scanning feature detecting your public API URL.
+4.  Trigger the deployment.
 
 ## Troubleshooting
 

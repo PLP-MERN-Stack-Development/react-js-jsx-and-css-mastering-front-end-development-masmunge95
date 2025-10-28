@@ -1,6 +1,7 @@
 import { useTheme } from '../context/ThemeContext';
 import { useRef } from 'react';
-import { NavHashLink } from 'react-router-hash-link';
+import { NavLink } from 'react-router-dom';
+import { useSmoothScroll } from '../hooks/useSmoothScroll';
 
 const SunIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -14,16 +15,34 @@ const MoonIcon = () => (
   </svg>
 );
 
+// This custom component replicates NavHashLink's functionality to provide
+// smooth scrolling while avoiding the React warnings. It uses NavLink for
+// routing and our custom useSmoothScroll hook for the animation.
+const SmoothNavLink = ({ to, children, headerRef, className, ...rest }) => {
+  const scrollTo = useSmoothScroll();
+
+  const handleClick = (e) => {
+    const hash = to.split('#')[1];
+    if (hash) {
+      e.preventDefault();
+      const targetElement = document.getElementById(hash);
+      const headerHeight = headerRef.current ? headerRef.current.offsetHeight : 0;
+      if (targetElement) {
+        scrollTo(targetElement, 1500, null, headerHeight);
+      }
+    }
+  };
+
+  return (
+    <NavLink to={to} onClick={handleClick} className={className} {...rest}>
+      {children}
+    </NavLink>
+  );
+};
+
 export default function Header() {
   const { theme, toggleTheme } = useTheme();
   const headerRef = useRef(null);
-  
-  const scrollWithOffset = (el) => {
-    const headerHeight = headerRef.current ? headerRef.current.offsetHeight : 0;
-    const yCoordinate = el.getBoundingClientRect().top + window.pageYOffset;
-    const yOffset = -headerHeight; 
-    window.scrollTo({ top: yCoordinate + yOffset, behavior: 'smooth' }); 
-  };
 
   return (
     <header ref={headerRef} className="fixed top-0 left-0 right-0 z-50 bg-white dark:bg-gray-800 border-b shadow-lg border-gray-200 dark:border-gray-700">
@@ -31,8 +50,8 @@ export default function Header() {
         <div className="text-lg font-bold text-white">Task Tracker</div>
         <div className="flex items-center gap-4">
           <div className="font-bold text-white">
-            <NavHashLink smooth to="/#tasks" scroll={scrollWithOffset} className="mr-4 hover:text-blue-300 transition-colors">Tasks</NavHashLink>
-            <NavHashLink smooth to="/#blog" scroll={scrollWithOffset} className="hover:text-blue-300 transition-colors">Blog</NavHashLink>
+            <SmoothNavLink to="/#tasks" headerRef={headerRef} className="relative mr-4 after:absolute after:bg-blue-300 after:bottom-0 after:left-0 after:h-px after:w-full after:origin-bottom-right after:scale-x-0 hover:after:origin-bottom-left hover:after:scale-x-100 after:transition-transform after:ease-in-out after:duration-300">Tasks</SmoothNavLink>
+            <SmoothNavLink to="/#blog" headerRef={headerRef} className="relative after:absolute after:bg-blue-300 after:bottom-0 after:left-0 after:h-px after:w-full after:origin-bottom-right after:scale-x-0 hover:after:origin-bottom-left hover:after:scale-x-100 after:transition-transform after:ease-in-out after:duration-300">Blog</SmoothNavLink>
           </div>
           <button
             onClick={toggleTheme}

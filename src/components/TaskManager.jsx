@@ -129,18 +129,18 @@ const TaskManager = () => {
   );
 
   return (
-    <div className="max-w-3xl mx-auto p-4" ref={taskManagerRef}>
+    <div className="max-w-3xl mx-auto p-4" ref={taskManagerRef} id="tasks">
       <h1 className="text-4xl font-bold text-center mb-4">Welcome!</h1>
       <p className="text-center mb-12">
         Manage your tasks efficiently with the Task Tracker app.
         To get started, add a new task using the form below.
         You can easily edit your current tasks, update their status, or delete them as needed.
         Enjoy!
-        </p>
-        <h1 className="text-3xl font-bold text-center mb-8">My Tasks</h1>
+      </p>
+      <h1 className="text-3xl font-bold text-center mb-8">My Tasks</h1>
       <TaskForm onSubmit={handleAddTask} isSubmitting={isAddingTask} />
 
-      <div ref={filterButtonsRef} className="flex gap-2 mb-12">
+      <div ref={filterButtonsRef} className="flex justify-center gap-2 mb-12">
         {['all', 'active', 'completed', 'abandoned'].map((f) => (
           <Button key={f} size="sm" variant={filter === f ? 'primary' : 'secondary'} onClick={() => setFilter(f)}>
             {f.charAt(0).toUpperCase() + f.slice(1)}
@@ -150,18 +150,16 @@ const TaskManager = () => {
 
       {loading && <p className="text-center">Loading tasks...</p>}
       {error && <p className="text-center text-red-600 font-medium bg-red-100 p-2 rounded-md">{error}</p>}
-      
+
       <ul ref={listContainerRef} className="space-y-2 min-h-[10rem] flex flex-col justify-center">
         {!loading && !isTransitioning && filteredTasks.length === 0 ? (
-          <p className="text-center text-gray-500">
-            {
-              {
-                all: 'No tasks on deck. Either genius or procrastination — you decide 😉',
-                active: 'All quiet on the task front. Suspiciously quiet… 👀',
-                completed: 'No completed tasks yet — greatness takes time (and maybe caffeine) ☕',
-                abandoned: 'No abandoned missions — clearly, you finish what you start (eventually)! 🚀',
-              }[filter]
-            }
+          <p className="text-center text-gray-500 mb-8">
+            {{
+              all: 'A clean slate — dangerously full of potential. What’s the first move? 🤔',
+              active: 'All quiet on the task front. Suspiciously quiet… 👀',
+              completed: 'No completed tasks yet — greatness takes time (and maybe caffeine) ☕',
+              abandoned: 'No abandoned missions — clearly, you finish what you start (eventually)! 🚀',
+            }[filter]}
           </p>
         ) : (
           !loading && paginatedTasks.map((task) => (
@@ -176,7 +174,7 @@ const TaskManager = () => {
           <Button onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1 || isTransitioning}>
             Previous
           </Button>
-          <span>
+          <span className="text-gray-700 dark:text-gray-300">
             Page {currentPage} of {totalPages}
           </span>
           <Button onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages || isTransitioning}>

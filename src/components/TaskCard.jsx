@@ -69,16 +69,18 @@ export default function TaskCard({ task, onUpdate, onDelete }) {
                 <form onSubmit={handleSave} className="flex flex-col gap-4">
                     <input
                         name="title"
-                        className="border rounded-lg p-2 w-full bg-gray-50 dark:bg-gray-700 dark:border-gray-600"
+                        className="border rounded-lg p-2 w-full bg-gray-50 text-black placeholder-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:placeholder-gray-400"
                         value={draft.title}
                         onChange={handleInputChange}
+                        placeholder="Enter task title"
                         required
                     />
                     <textarea
                         name="description"
-                        className="border rounded-lg p-2 w-full bg-gray-50 dark:bg-gray-700 dark:border-gray-600"
+                        className="border rounded-lg p-2 w-full bg-gray-50 text-black placeholder-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:placeholder-gray-400"
                         value={draft.description}
                         onChange={handleInputChange}
+                        placeholder="Enter task description"
                     />
                     <div className="flex gap-2">
                         <Button type="submit" variant="success" size="sm">
