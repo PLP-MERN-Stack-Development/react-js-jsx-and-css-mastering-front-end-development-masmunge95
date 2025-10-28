@@ -174,7 +174,7 @@ const TaskManager = () => {
           <Button onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1 || isTransitioning}>
             Previous
           </Button>
-          <span className="text-gray-700 dark:text-gray-300">
+          <span>
             Page {currentPage} of {totalPages}
           </span>
           <Button onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages || isTransitioning}>
